@@ -1,0 +1,31 @@
+// components/Layout.js
+import React from 'react';
+import { Link, Outlet } from 'react-router-dom';
+
+const Layout = () => {
+    return (
+        <div className="rtl" dir="rtl">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div className="container">
+                    <Link className="navbar-brand" to="/">City Weather App</Link>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/">Favorite Cities</Link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div className="container mt-4">
+                <Outlet />
+            </div>
+        </div>
+    );
+};
+
+export default Layout;
