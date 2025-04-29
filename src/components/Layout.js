@@ -16,13 +16,16 @@ const Layout = () => {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/">Favorite Cities</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/all-cities">All Cities</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </nav>
 
             <div className="container mt-4">
-                <Outlet />
+                <Outlet/>
             </div>
         </div>
     );
