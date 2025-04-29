@@ -54,7 +54,7 @@ function AllCities ({cities, countries, dispatch}) {
         if (editingCity) {
             dispatch({
                 type: 'UPDATE_CITY',
-                oldCityName: editingCity.name,
+                name: editingCity.name,
                 payload: updatedCity
             });
             setEditingCity(null);
@@ -69,14 +69,14 @@ function AllCities ({cities, countries, dispatch}) {
 
     const confirmDeleteCity = () => {
         if (cityToDelete) {
-            dispatch({ type: 'DELETE_CITY', cityName: cityToDelete.name });
+            dispatch({ type: 'DELETE_CITY', name: cityToDelete.name });
             hideConfirmModal();
             setCityToDelete(null);
         }
     };
 
     const handleToggleFavorite = (city) => {
-        dispatch({ type: 'TOGGLE_FAVORITE', cityName: city.name });
+        dispatch({ type: 'TOGGLE_FAVORITE', name: city.name });
     };
 
     // Cancel adding/editing
