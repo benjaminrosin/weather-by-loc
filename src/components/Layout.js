@@ -4,7 +4,7 @@ import { Link, Outlet } from 'react-router-dom';
 
 const Layout = () => {
     return (
-        <div className="rtl" dir="rtl">
+        <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container">
                     <Link className="navbar-brand" to="/">City Weather App</Link>
