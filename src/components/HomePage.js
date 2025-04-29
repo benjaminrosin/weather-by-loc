@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import WeatherForecast from './WeatherForecast';
 
-const HomePage = ({ cities, countries, selectedCountry, setSelectedCountry }) => {
+function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
     const [weatherData, setWeatherData] = useState(null);
     const [selectedCity, setSelectedCity] = useState(null);
     const [loading, setLoading] = useState(false);

@@ -29,7 +29,7 @@ const Layout = () => {
             </nav>
 
             <div className="container mt-4">
-                <Outlet />
+                <Outlet/>
             </div>
         </div>
     );
