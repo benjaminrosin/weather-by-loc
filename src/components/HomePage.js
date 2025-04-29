@@ -1,6 +1,7 @@
 // components/HomePage.js
 import React, { useState } from 'react';
 import WeatherForecast from './WeatherForecast';
+import CityForm from "./CityForm";
 
 function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
     const [weatherData, setWeatherData] = useState(null);
@@ -59,6 +60,10 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
         <div className="row">
             <div className="col-12">
                 <h2 className="mb-4">Favorite Cities</h2>
+
+                <CityForm citiesList={[{name: 'aaa', lat: 90},]} countries={countries} onSubmit={(a)=>console.log(a)} editing={{name:'bbb', latitude:80, longitude:30}} /> {/*<!-- DEBUG -->*/}
+                -------------------------
+                <CityForm citiesList={[{name: 'aaa', lat: 90},]} countries={countries} onSubmit={(a)=>console.log(a)} /> {/*<!-- DEBUG -->*/}
 
                 {selectedCity ? (
                     <div>
