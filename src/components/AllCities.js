@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import useModal from "../hooks/useModal";
+import CityForm from "./CityForm";
 
 function AllCities ({cities, countries, dispatch}) {
     const [editingCity, setEditingCity] = useState(null);
@@ -97,18 +98,26 @@ function AllCities ({cities, countries, dispatch}) {
                     )}
                 </div>
 
-                {/* Add/Edit form
-                {(addingCity || editingCity) && (
+
+                {(addingCity) && (
                     <CityForm
-                        city={editingCity}
-                        cities={cities}
+                        editing={editingCity}
+                        citiesList={cities}
                         countries={countries}
-                        onAdd={handleAddNewCity}
-                        onUpdate={handleUpdateCity}
-                        onCancel={handleCancel}
+                        onSubmit={handleAddNewCity}
+                        //onCancel={handleCancel}
                     />
                 )}
-                */}
+
+                {(editingCity) && (
+                    <CityForm
+                        editing={editingCity}
+                        citiesList={cities}
+                        countries={countries}
+                        onSubmit={handleUpdateCity}
+                        //onCancel={handleCancel}
+                    />
+                )}
 
                 {/* Cities list */}
                 {!addingCity && !editingCity && (
@@ -137,11 +146,11 @@ function AllCities ({cities, countries, dispatch}) {
                                             <td>{city.longitude}</td>
                                             <td>
                                                 <button
-                                                    className={`btn btn-sm ${city.favorite ? 'btn-warning' : 'btn-outline-warning'}`}
+                                                    className={`btn btn-sm ${city.isFavorite ? 'btn-warning' : 'btn-outline-warning'}`}
                                                     onClick={() => handleToggleFavorite(city)}
-                                                    title={city.favorite ? 'Remove from favorites' : 'Add to favorites'}
+                                                    title={city.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
                                                 >
-                                                    <i className={`bi ${city.favorite ? 'bi-star-fill' : 'bi-star'}`}></i>
+                                                    <i className={`bi ${city.isFavorite ? 'bi-star-fill' : 'bi-star'}`}></i>
                                                 </button>
                                             </td>
                                             <td>
@@ -210,4 +219,6 @@ function AllCities ({cities, countries, dispatch}) {
             </div>
         </div>
     );
-} export default AllCities;
+}
+
+export default AllCities;

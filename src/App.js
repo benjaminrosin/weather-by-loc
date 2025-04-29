@@ -12,14 +12,14 @@ import {citiesReducer} from "./reducers/citiesReducer";
 function App() {
 
     const initialCities = [
-        {name: "Paris", country: "France", longitude: 2.35, latitude: 48.85, favorite: false},
-        {name: "New York", country: "USA", longitude: -74.0059, latitude: 40.7128, favorite: false},
-        {name: "London", country: "England", longitude: -0.1278, latitude: 51.5074, favorite: false},
-        {name: "Madrid", country: "Spain", longitude: -3.6833, latitude: 40.4167, favorite: false},
-        {name: "Rome", country: "Italy", longitude: 12.5, latitude: 41.9, favorite: false},
-        {name: "Berlin", country: "Germany", longitude: 13.4, latitude: 52.52, favorite: false},
-        {name: "Tokyo", country: "japan", longitude: 139.69, latitude: 35.68, favorite: false},
-        {name: "Jerusalem", country: "Israel", longitude: 35.23, latitude: 31.78, favorite: true}
+        {name: "Paris", country: "France", longitude: 2.35, latitude: 48.85, isFavorite: false},
+        {name: "New York", country: "USA", longitude: -74.0059, latitude: 40.7128, isFavorite: false},
+        {name: "London", country: "England", longitude: -0.1278, latitude: 51.5074, isFavorite: true},
+        {name: "Madrid", country: "Spain", longitude: -3.6833, latitude: 40.4167, isFavorite: false},
+        {name: "Rome", country: "Italy", longitude: 12.5, latitude: 41.9, isFavorite: true},
+        {name: "Berlin", country: "Germany", longitude: 13.4, latitude: 52.52, isFavorite: false},
+        {name: "Tokyo", country: "japan", longitude: 139.69, latitude: 35.68, isFavorite: false},
+        {name: "Jerusalem", country: "Israel", longitude: 35.23, latitude: 31.78, isFavorite: true}
     ];
 
     const [cities, dispatch] = useReducer(citiesReducer, initialCities);

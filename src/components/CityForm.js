@@ -1,8 +1,15 @@
 import {useState} from "react";
 
+/*
 
-function CityForm({citiesList, countries, onSubmit, editing = {}}) {
-    const [formData, setFormData] = useState(editing);
+<CityForm citiesList={[{name: 'aaa', lat: 90},]} countries={countries} onSubmit={(a)=>console.log(a)} editing={{name:'bbb', latitude:80, longitude:30}} />
+-------------------------
+<CityForm citiesList={[{name: 'aaa', lat: 90},]} countries={countries} onSubmit={(a)=>console.log(a)} />
+
+ */
+
+function CityForm({citiesList, countries, onSubmit, editing = null}) {
+    const [formData, setFormData] = useState(editing || {});
     const [errors, setErrors] = useState({});
 
     function resetForm(){
@@ -72,7 +79,7 @@ function CityForm({citiesList, countries, onSubmit, editing = {}}) {
                     name="name"
                     value={formData.name || ''}
                     onChange={handleChange}
-                    disabled={Object.keys(editing).length > 0}
+                    disabled={editing}
                 />
                 {errors.name && <div className="invalid-feedback">{errors.name}</div>}
             </div>
@@ -136,7 +143,7 @@ function CityForm({citiesList, countries, onSubmit, editing = {}}) {
             </div>
 
             <div className="mb-3">
-                <button type="submit" className="btn btn-success">{Object.keys(editing).length !== 0? "Save Changes":"Add City"}</button>
+                <button type="submit" className="btn btn-success">{editing? "Save Changes":"Add City"}</button>
                 <button type="reset" className="btn btn-success ms-3" onClick={resetForm}>back</button>
             </div>
         </form>

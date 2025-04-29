@@ -8,11 +8,11 @@ export const citiesReducer = (state, action) => {
             if (state.some(city => city.name === action.payload.name )) {
                 return state;
             }
-            return [...state, {...action.payload, favorite: false}];
+            return [...state, {...action.payload, isFavorite: false}];
 
         case 'UPDATE_CITY':
             return state.map(city =>
-                city.name === action.oldCityName ? { ...action.payload, favorite: city.favorite ?? false } : city
+                city.name === action.oldCityName ? { ...action.payload, isFavorite: city.isFavorite ?? false } : city
             );
 
         case 'DELETE_CITY':
@@ -20,7 +20,7 @@ export const citiesReducer = (state, action) => {
 
         case 'TOGGLE_FAVORITE':
             return state.map(city =>
-                city.name === action.name ? { ...city, favorite: !city.favorite ?? false } : city
+                city.name === action.name ? { ...city, isFavorite: !city.isFavorite ?? false } : city
             );
 
         default:
