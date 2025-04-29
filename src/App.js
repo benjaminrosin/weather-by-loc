@@ -4,7 +4,9 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import {useState} from "react";
 import HomePage from "./components/HomePage";
 import Layout from "./components/Layout";
+import AboutPage from "./components/AboutPage";
 import AllCities from "./components/AllCities";
+import NotFoundPage from "./components/NotFoundPage";
 
 function App() {
     const [cities, setCities] = useState([
@@ -35,7 +37,7 @@ function App() {
                               setSelectedCountry={setSelectedCountry}
                           />
                       } />
-                      <Route path="all-cities" element={
+                      {/*<Route path="all-cities" element={
                           <AllCities
                               cities={cities}
                               countries={countries}
@@ -44,6 +46,12 @@ function App() {
                               deleteCity={deleteCity}
                               toggleFavorite={toggleFavorite}
                           />
+                      } />*/}
+                      <Route path="about" element={
+                          <AboutPage/>
+                      } />
+                      <Route path="*" element={
+                          <NotFoundPage/>
                       } />
                   </Route>
               </Routes>
