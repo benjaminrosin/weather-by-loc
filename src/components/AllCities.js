@@ -93,7 +93,7 @@ function AllCities ({cities, countries, dispatch}) {
     }
 
     const handleToggleFavorite = (city) => {
-        dispatch({ type: 'TOGGLE_FAVORITE', cityName: city.name });
+        dispatch({ type: 'TOGGLE_FAVORITE', cityName: city });
     };
 
     // Cancel adding/editing
@@ -171,17 +171,18 @@ function AllCities ({cities, countries, dispatch}) {
                                             <td>{city.latitude}</td>
                                             <td>{city.longitude}</td>
                                             <td>
-                                                {/*<button
+                                                <button
                                                     className={`btn btn-sm ${city.isFavorite ? 'btn-warning' : 'btn-outline-warning'}`}
-                                                    onClick={() => handleToggleFavorite(city)}
+                                                    onClick={() => handleToggleFavorite(city.name)}
                                                     title={city.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
                                                 >
                                                     <i className={`bi ${city.isFavorite ? 'bi-star-fill' : 'bi-star'}`}></i>
-                                                </button>*/}
-                                                <button
+                                                </button>
+
+                                                {/*<button
                                                     className={`btn bi ${city.isFavorite ? 'bi-star-fill' : 'bi-star'}`}
                                                     onClick={() => handleToggleFavorite(city)}
-                                                />
+                                                />*/}
                                             </td>
                                             <td>
                                                 <div className="btn-group">

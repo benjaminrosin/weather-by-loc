@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import {useEffect, useReducer, useState} from "react";
 import HomePage from "./components/HomePage";
