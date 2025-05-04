@@ -33,15 +33,15 @@ function AllCities ({cities, countries, dispatch}) {
         .map(([name, city]) => ({ name, ...city }));
 
     const handleAddCity = () => {
-        //setAddingCity(true);
-        //setEditingCity(null);
-        setEditingForm({...editingForm, form: true})
+        setAddingCity(true);
+        setEditingCity(null);
+        //setEditingForm({...editingForm, form: true})
     };
 
     const handleEditCity = (city) => {
-        //setEditingCity(city);
-        //setAddingCity(false);
-        setEditingForm({form: true, obj: city})
+        setEditingCity(city);
+        setAddingCity(false);
+        //setEditingForm({form: true, obj: city})
     }
 
     const handleAddNewCity = (newCity) => {
@@ -57,7 +57,10 @@ function AllCities ({cities, countries, dispatch}) {
     };
 
     const  saveChanges = (city) =>{
-
+        if (city) {
+            dispatch({ type: 'SAVE_CHANGES', payload: city });
+        }
+        setEditingForm(null)
     }
 
     const handleUpdateCity = (updatedCity) => {
@@ -84,6 +87,10 @@ function AllCities ({cities, countries, dispatch}) {
             setCityToDelete(null);
         }
     };
+
+    const deleteCity = (cityName) => {
+        dispatch({ type: 'DELETE_CITY', payload: cityName });
+    }
 
     const handleToggleFavorite = (city) => {
         dispatch({ type: 'TOGGLE_FAVORITE', cityName: city.name });
@@ -112,7 +119,7 @@ function AllCities ({cities, countries, dispatch}) {
                   <CityForm
                     citiesList={cities}
                     countries={countries}
-                    onSubmit={}
+                    onSubmit={saveChanges}
                     editing={editingForm}
                   />
                 )}
@@ -164,13 +171,17 @@ function AllCities ({cities, countries, dispatch}) {
                                             <td>{city.latitude}</td>
                                             <td>{city.longitude}</td>
                                             <td>
-                                                <button
+                                                {/*<button
                                                     className={`btn btn-sm ${city.isFavorite ? 'btn-warning' : 'btn-outline-warning'}`}
                                                     onClick={() => handleToggleFavorite(city)}
                                                     title={city.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
                                                 >
                                                     <i className={`bi ${city.isFavorite ? 'bi-star-fill' : 'bi-star'}`}></i>
-                                                </button>
+                                                </button>*/}
+                                                <button
+                                                    className={`btn bi ${city.isFavorite ? 'bi-star-fill' : 'bi-star'}`}
+                                                    onClick={() => handleToggleFavorite(city)}
+                                                />
                                             </td>
                                             <td>
                                                 <div className="btn-group">
@@ -183,7 +194,8 @@ function AllCities ({cities, countries, dispatch}) {
                                                     </button>
                                                     <button
                                                         className="btn btn-sm btn-outline-danger"
-                                                        onClick={() => prepareDeleteCity(city)}
+                                                        //onClick={() => prepareDeleteCity(city)}
+                                                        onClick={() => deleteCity(city.name)}
                                                         title="Delete city"
                                                     >
                                                         <i className="bi bi-trash"></i>
