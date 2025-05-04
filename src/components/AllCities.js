@@ -1,4 +1,5 @@
 import {useEffect, useRef, useState} from "react";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import useModal from "../hooks/useModal";
 import CityForm from "./CityForm";
 
@@ -171,20 +172,24 @@ function AllCities ({cities, countries, dispatch}) {
                                             <td>{city.latitude}</td>
                                             <td>{city.longitude}</td>
                                             <td>
+                                                <div className="d-flex justify-content-center">
+                                                    <button
+                                                        onClick={() => handleToggleFavorite(city)}
+                                                        title={city.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                                                        className="p-0 border-0 bg-transparent"
+                                                    >
+                                                        <i
+                                                            className={`bi ${city.isFavorite ? 'bi-star-fill text-warning' : 'bi-star text-secondary'}`}
+                                                        ></i>
+                                                    </button>
+                                                </div>
                                                 {/*<button
-                                                    className={`btn btn-sm ${city.isFavorite ? 'btn-warning' : 'btn-outline-warning'}`}
-                                                    onClick={() => handleToggleFavorite(city)}
-                                                    title={city.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-                                                >
-                                                    <i className={`bi ${city.isFavorite ? 'bi-star-fill' : 'bi-star'}`}></i>
-                                                </button>*/}
-                                                <button
                                                     className={`btn bi ${city.isFavorite ? 'bi-star-fill' : 'bi-star'}`}
                                                     onClick={() => handleToggleFavorite(city)}
-                                                />
+                                                />*/}
                                             </td>
                                             <td>
-                                                <div className="btn-group">
+                                            <div className="btn-group d-flex justify-content-center">
                                                     <button
                                                         className="btn btn-sm btn-outline-primary"
                                                         onClick={() => setEditingForm(city)}
