@@ -27,9 +27,9 @@ function CityForm({citiesList, countries, onSubmit, editing = null}) {
         else if(!/^[a-zA-Z\s]+$/.test(formData.name)){
             currErrors.name = "City name can only contain letters and spaces";
         }
-        else if (citiesList.some((city) => city.name.toLowerCase() === formData.name.toLowerCase())) {
-            currErrors.name = "City name must bu unique";
-        }
+        //else if (citiesList.some((city) => city.name.toLowerCase() === formData.name.toLowerCase())) {
+          //  currErrors.name = "City name must bu unique";
+        //}
 
         //country validation
         if (!formData.country){
