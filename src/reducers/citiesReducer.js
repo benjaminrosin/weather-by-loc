@@ -3,7 +3,7 @@ export const citiesReducer = (state, action) => {
     switch (action.type) {
         case 'INITIALIZE':
             return action.payload;
-
+        /*
         case 'ADD_CITY':
             if (state.some(city => city.name === action.payload.name )) {
                 return state;
@@ -14,9 +14,17 @@ export const citiesReducer = (state, action) => {
             return state.map(city =>
                 city.name === action.oldCityName ? { ...action.payload, isFavorite: city.isFavorite ?? false } : city
             );
+*/
+        case 'SAVE_CHANGES': {
+            let {name, ...rest} = action.payload;
+            rest = {isFavorite: false, ...rest};
+            return {...state, [name]: rest};
+        }
 
-        case 'DELETE_CITY':
-            return state.filter(city => city.name !== action.name);
+        case 'DELETE_CITY': {
+            const {[action.payload]:_, ...rest} = state;
+            return rest;
+        }
 
         case 'TOGGLE_FAVORITE':
             return state.map(city =>

@@ -9,12 +9,23 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
     const [loading, setLoading] = useState(false);
 
     // Filter favorite cities
-    const favoriteCities = cities
+    /*const favoriteCities = cities
         .filter(city => city.isFavorite)
         .filter(city =>
             !selectedCountry || city.country === selectedCountry
         )
         .sort((a, b) => a.name.localeCompare(b.name));
+
+
+     */
+
+     const favoriteCities = Object.entries(cities)
+        .filter(([name, city]) => city.isFavorite)
+        .filter(([name, city]) =>
+            !selectedCountry || city.country === selectedCountry
+        )
+        .sort(([nameA], [nameB]) => nameA.localeCompare(nameB))
+        .map(([name, city]) => ({ name, ...city }));
 
     // Handle country filter change
     const handleCountryChange = (e) => {

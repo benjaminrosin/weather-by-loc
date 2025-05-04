@@ -8,13 +8,14 @@ import {useState} from "react";
 
  */
 
-function CityForm({citiesList, countries, onSubmit, editing = null}) {
-    const [formData, setFormData] = useState(editing || {});
+function CityForm({citiesList, countries, onSubmit, editing}) {
+    const [formData, setFormData] = useState(editing);
     const [errors, setErrors] = useState({});
 
     function resetForm(){
         setFormData({});
         setErrors({});
+        onSubmit(null);
     }
 
     function validate() {
@@ -27,8 +28,10 @@ function CityForm({citiesList, countries, onSubmit, editing = null}) {
         else if(!/^[a-zA-Z\s]+$/.test(formData.name)){
             currErrors.name = "City name can only contain letters and spaces";
         }
-        else if (citiesList.some((city) => city.name.toLowerCase() === formData.name.toLowerCase())) {
-            currErrors.name = "City name must bu unique";
+        else if (Object.keys(citiesList).length === 0 &&
+            Object.keys(citiesList).some((city) => city.toLowerCase() === formData.name.toLowerCase()))
+        {
+            currErrors.name = "City name must be unique";
         }
 
         //country validation
@@ -52,6 +55,10 @@ function CityForm({citiesList, countries, onSubmit, editing = null}) {
             currErrors.longitude = "Longitude must be between -180 and 180.";
         }
 
+        if(!formData.isFavorite){
+            formData.isFavorite = false;
+        }
+
         setErrors(currErrors);
         return Object.keys(currErrors).length === 0;
     }
@@ -60,11 +67,15 @@ function CityForm({citiesList, countries, onSubmit, editing = null}) {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     }
 
+    function handleChangeCheckbox(event){
+        setFormData({ ...formData, [event.target.name]: event.target.checked });
+    }
+
     function handleSubmit(event) {
         event.preventDefault();
         if (validate()){
-            onSubmit(formData)
-            resetForm()
+            onSubmit(formData);
+            //resetForm();
         }
     }
 
@@ -79,7 +90,7 @@ function CityForm({citiesList, countries, onSubmit, editing = null}) {
                     name="name"
                     value={formData.name || ''}
                     onChange={handleChange}
-                    disabled={editing}
+                    disabled={Object.keys(editing).length !== 0}
                 />
                 {errors.name && <div className="invalid-feedback">{errors.name}</div>}
             </div>
@@ -134,16 +145,16 @@ function CityForm({citiesList, countries, onSubmit, editing = null}) {
                 <input
                     className="form-check-input"
                     type="checkbox"
-                    value={formData.isFavorite || ''}
+                    checked={formData.isFavorite || false}
                     name="isFavorite"
                     id="isFavorite"
-                    onChange={handleChange}
+                    onChange={handleChangeCheckbox}
                 />
 
             </div>
 
             <div className="mb-3">
-                <button type="submit" className="btn btn-success">{editing? "Save Changes":"Add City"}</button>
+                <button type="submit" className="btn btn-success">{Object.keys(editing).length !== 0? "Save Changes":"Add City"}</button>
                 <button type="reset" className="btn btn-success ms-3" onClick={resetForm}>back</button>
             </div>
         </form>

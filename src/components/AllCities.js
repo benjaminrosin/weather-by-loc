@@ -5,6 +5,7 @@ import CityForm from "./CityForm";
 function AllCities ({cities, countries, dispatch}) {
     const [editingCity, setEditingCity] = useState(null);
     const [addingCity, setAddingCity] = useState(null);
+    const [editingForm, setEditingForm] = useState(null)
     const [modalMessage, setModalMessage] = useState('');
     const [cityToDelete, setCityToDelete] = useState(null);
 
@@ -26,16 +27,21 @@ function AllCities ({cities, countries, dispatch}) {
         backdrop: 'static'
     });
 
-    const sortedCities = [...cities].sort((a, b) => a.name.localeCompare(b.name));
+    //const sortedCities = [...cities].sort((a, b) => a.name.localeCompare(b.name));
+    const sortedCities = Object.entries(cities)
+        .sort(([nameA], [nameB]) => nameA.localeCompare(nameB))
+        .map(([name, city]) => ({ name, ...city }));
 
     const handleAddCity = () => {
         setAddingCity(true);
         setEditingCity(null);
+        //setEditingForm({...editingForm, form: true})
     };
 
     const handleEditCity = (city) => {
         setEditingCity(city);
         setAddingCity(false);
+        //setEditingForm({form: true, obj: city})
     }
 
     const handleAddNewCity = (newCity) => {
@@ -49,6 +55,13 @@ function AllCities ({cities, countries, dispatch}) {
         setAddingCity(false);
         return true;
     };
+
+    const  saveChanges = (city) =>{
+        if (city) {
+            dispatch({ type: 'SAVE_CHANGES', payload: city });
+        }
+        setEditingForm(null)
+    }
 
     const handleUpdateCity = (updatedCity) => {
         if (editingCity) {
@@ -75,6 +88,10 @@ function AllCities ({cities, countries, dispatch}) {
         }
     };
 
+    const deleteCity = (cityName) => {
+        dispatch({ type: 'DELETE_CITY', payload: cityName });
+    }
+
     const handleToggleFavorite = (city) => {
         dispatch({ type: 'TOGGLE_FAVORITE', name: city.name });
     };
@@ -91,15 +108,23 @@ function AllCities ({cities, countries, dispatch}) {
                 <div className="d-flex justify-content-between align-items-center mb-4">
                     <h2>Manage Cities</h2>
                     {!addingCity && !editingCity && (
-                        <button className="btn btn-primary" onClick={handleAddCity}>
+                        <button className="btn btn-primary" onClick={()=> setEditingForm({})}>
                             <i className="bi bi-plus-circle me-2"></i>
                             Add New City
                         </button>
                     )}
                 </div>
 
+                {(editingForm) && (
+                  <CityForm
+                    citiesList={cities}
+                    countries={countries}
+                    onSubmit={saveChanges}
+                    editing={editingForm}
+                  />
+                )}
 
-                {(addingCity) && (
+                {/*(addingCity) && (
                     <CityForm
                         editing={editingCity}
                         citiesList={cities}
@@ -117,10 +142,11 @@ function AllCities ({cities, countries, dispatch}) {
                         onSubmit={handleUpdateCity}
                         //onCancel={handleCancel}
                     />
-                )}
+                )*/}
 
                 {/* Cities list */}
-                {!addingCity && !editingCity && (
+                {//!addingCity && !editingCity && (
+                    !editingForm &&(
                     <>
                         {sortedCities.length === 0 ? (
                             <div className="alert alert-info">No cities to display</div>
@@ -145,26 +171,31 @@ function AllCities ({cities, countries, dispatch}) {
                                             <td>{city.latitude}</td>
                                             <td>{city.longitude}</td>
                                             <td>
-                                                <button
+                                                {/*<button
                                                     className={`btn btn-sm ${city.isFavorite ? 'btn-warning' : 'btn-outline-warning'}`}
                                                     onClick={() => handleToggleFavorite(city)}
                                                     title={city.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
                                                 >
                                                     <i className={`bi ${city.isFavorite ? 'bi-star-fill' : 'bi-star'}`}></i>
-                                                </button>
+                                                </button>*/}
+                                                <button
+                                                    className={`btn bi ${city.isFavorite ? 'bi-star-fill' : 'bi-star'}`}
+                                                    onClick={() => handleToggleFavorite(city)}
+                                                />
                                             </td>
                                             <td>
                                                 <div className="btn-group">
                                                     <button
                                                         className="btn btn-sm btn-outline-primary"
-                                                        onClick={() => handleEditCity(city)}
+                                                        onClick={() => setEditingForm(city)}
                                                         title="Edit city"
                                                     >
                                                         <i className="bi bi-pencil"></i>
                                                     </button>
                                                     <button
                                                         className="btn btn-sm btn-outline-danger"
-                                                        onClick={() => prepareDeleteCity(city)}
+                                                        //onClick={() => prepareDeleteCity(city)}
+                                                        onClick={() => deleteCity(city.name)}
                                                         title="Delete city"
                                                     >
                                                         <i className="bi bi-trash"></i>
