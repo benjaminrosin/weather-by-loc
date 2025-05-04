@@ -27,9 +27,9 @@ export const citiesReducer = (state, action) => {
         }
 
         case 'TOGGLE_FAVORITE':
-            return state.map(city =>
-                city.name === action.name ? { ...city, isFavorite: !city.isFavorite ?? false } : city
-            );
+            const city = state[action.cityName];
+            const updatedCity = {...city, isFavorite: !city.isFavorite};
+            return {...state, [action.cityName]: updatedCity};
 
         default:
             return state;
