@@ -38,28 +38,28 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
     };
 
     // Fetch weather data
-    const fetchWeatherData = async (city) => {
-        setLoading(true);
-        setSelectedCity(city);
-
-        try {
-            const response = await fetch(
-                `https://www.7timer.info/bin/api.pl?lon=${city.longitude}&lat=${city.latitude}&product=civillight&output=json`
-            );
-
-            if (!response.ok) {
-                throw new Error('Error loading weather data');
-            }
-
-            const data = await response.json();
-            setWeatherData(data.dataseries);
-        } catch (error) {
-            console.error('Error fetching weather data:', error);
-            alert('Unable to load weather data. Please try again later.');
-        } finally {
-            setLoading(false);
-        }
-    };
+    // const fetchWeatherData = async (city) => {
+    //     setLoading(true);
+    //     setSelectedCity(city);
+    //
+    //     try {
+    //         const response = await fetch(
+    //             `https://www.7timer.info/bin/api.pl?lon=${city.longitude}&lat=${city.latitude}&product=civillight&output=json`
+    //         );
+    //
+    //         if (!response.ok) {
+    //             throw new Error('Error loading weather data');
+    //         }
+    //
+    //         const data = await response.json();
+    //         setWeatherData(data.dataseries);
+    //     } catch (error) {
+    //         console.error('Error fetching weather data:', error);
+    //         alert('Unable to load weather data. Please try again later.');
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
 
     // Back to cities list
     const handleBackToList = () => {
@@ -78,7 +78,7 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
                             <i className="bi bi-arrow-left me-2"></i> Back to Cities List
                         </button>
 
-                        {weatherData ? (
+                        {/*weatherData ? (
                             <WeatherForecast
                                 weatherData={weatherData}
                                 city={selectedCity}
@@ -89,7 +89,10 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
                                     <span className="visually-hidden">Loading...</span>
                                 </div>
                             </div>
-                        )}
+                        )*/
+                            <WeatherForecast
+                                city={selectedCity} />
+                        }
                     </div>
                 ) : (
                     <>
@@ -145,7 +148,7 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
                                                 </p>
                                             </div>
                                             <div className="card-footer">
-                                                <button
+                                                {/*<button
                                                     className="btn btn-outline-primary w-100"
                                                     onClick={() => fetchWeatherData(city)}
                                                     disabled={loading}
@@ -161,7 +164,15 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
                                                             Show Forecast
                                                         </>
                                                     )}
+                                                </button>*/}
+                                                <button
+                                                    className="btn btn-outline-primary w-100"
+                                                    onClick={() => setSelectedCity(city)}
+                                                >
+                                                    <i className="bi bi-cloud-sun me-2"></i>
+                                                    Show Forecast
                                                 </button>
+
                                             </div>
                                         </div>
                                     </div>
