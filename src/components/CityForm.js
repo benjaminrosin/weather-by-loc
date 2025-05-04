@@ -1,15 +1,8 @@
 import {useState} from "react";
 
-/*
-
-<CityForm citiesList={[{name: 'aaa', lat: 90},]} countries={countries} onSubmit={(a)=>console.log(a)} editing={{name:'bbb', latitude:80, longitude:30}} />
--------------------------
-<CityForm citiesList={[{name: 'aaa', lat: 90},]} countries={countries} onSubmit={(a)=>console.log(a)} />
-
- */
 
 function CityForm({citiesList, countries, onSubmit, editing}) {
-    const [formData, setFormData] = useState(editing);
+    const [formData, setFormData] = useState({...editing});
     const [errors, setErrors] = useState({});
 
     function resetForm(){
@@ -63,7 +56,7 @@ function CityForm({citiesList, countries, onSubmit, editing}) {
         return Object.keys(currErrors).length === 0;
     }
 
-    function handleChange(event) {
+    function handleChangeTextbox(event) {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     }
 
@@ -75,7 +68,6 @@ function CityForm({citiesList, countries, onSubmit, editing}) {
         event.preventDefault();
         if (validate()){
             onSubmit(formData);
-            //resetForm();
         }
     }
 
@@ -89,7 +81,7 @@ function CityForm({citiesList, countries, onSubmit, editing}) {
                     id="name"
                     name="name"
                     value={formData.name || ''}
-                    onChange={handleChange}
+                    onChange={handleChangeTextbox}
                     disabled={Object.keys(editing).length !== 0}
                 />
                 {errors.name && <div className="invalid-feedback">{errors.name}</div>}
@@ -102,7 +94,7 @@ function CityForm({citiesList, countries, onSubmit, editing}) {
                     id="country"
                     name="country"
                     value={formData.country || ''}
-                    onChange={handleChange}
+                    onChange={handleChangeTextbox}
                 >
                     <option value="">-- Select Country --</option>
                     {countries.map((c) => (
@@ -120,7 +112,7 @@ function CityForm({citiesList, countries, onSubmit, editing}) {
                     id="latitude"
                     name="latitude"
                     value={formData.latitude || ''}
-                    onChange={handleChange}
+                    onChange={handleChangeTextbox}
                     step="any"
                 />
                 {errors.latitude && <div className="invalid-feedback">{errors.latitude}</div>}
@@ -134,7 +126,7 @@ function CityForm({citiesList, countries, onSubmit, editing}) {
                     id="longitude"
                     name="longitude"
                     value={formData.longitude || ''}
-                    onChange={handleChange}
+                    onChange={handleChangeTextbox}
                     step="any"
                 />
                 {errors.longitude && <div className="invalid-feedback">{errors.longitude}</div>}
@@ -154,8 +146,8 @@ function CityForm({citiesList, countries, onSubmit, editing}) {
             </div>
 
             <div className="mb-3">
-                <button type="submit" className="btn btn-success">{Object.keys(editing).length !== 0? "Save Changes":"Add City"}</button>
-                <button type="reset" className="btn btn-success ms-3" onClick={resetForm}>back</button>
+                <button type="submit" className="btn btn-outline-secondary">{Object.keys(editing).length !== 0? "Save Changes":"Add City"}</button>
+                <button type="reset" className="btn btn-outline-secondary ms-3" onClick={resetForm}>back</button>
             </div>
         </form>
     );

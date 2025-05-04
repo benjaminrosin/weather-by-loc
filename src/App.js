@@ -22,9 +22,11 @@ function App() {
         {name: "Jerusalem", country: "Israel", longitude: 35.23, latitude: 31.78, isFavorite: true}
     ];
 
+    const COUNTRIES = ["Israel", "USA", "England", "France", "Spain", "Italy", "Germany", "Japan"];
+
     const [cities, dispatch] = useReducer(citiesReducer, Object.fromEntries(initialCities.map(
         ({name, ...rest})=> [name, rest])));
-    const [countries, setCountries] = useState(["Israel", "USA", "England", "France", "Spain", "Italy", "Germany", "Japan"]); /*temporary!!*/
+    const [countries, setCountries] = useState([]); /*temporary!!*/
     const [selectedCountry, setSelectedCountry] = useState('');
 
     useEffect(() => {
@@ -37,6 +39,11 @@ function App() {
     useEffect(() => {
         localStorage.setItem('cities', JSON.stringify(cities));
     }, [cities]);
+
+    useEffect(() => {
+        setCountries(COUNTRIES)
+        //here we cam add a dynamic country list from server
+    }, []);
 
     return (
       <>

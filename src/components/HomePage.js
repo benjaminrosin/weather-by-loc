@@ -1,23 +1,13 @@
 // components/HomePage.js
 import React, { useState } from 'react';
 import WeatherForecast from './WeatherForecast';
+import CityCard from "./CityCard";
 
 
 function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
     const [weatherData, setWeatherData] = useState(null);
     const [selectedCity, setSelectedCity] = useState(null);
     const [loading, setLoading] = useState(false);
-
-    // Filter favorite cities
-    /*const favoriteCities = cities
-        .filter(city => city.isFavorite)
-        .filter(city =>
-            !selectedCountry || city.country === selectedCountry
-        )
-        .sort((a, b) => a.name.localeCompare(b.name));
-
-
-     */
 
      const favoriteCities = Object.entries(cities)
         .filter(([name, city]) => city.isFavorite)
@@ -98,10 +88,10 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
                                 <h5 className="mb-0">Filter Cities</h5>
                             </div>
                             <div className="card-body">
-                                <div className="row g-3">
-                                    <div className="col-md-6">
+                                <div className="row">
+                                    <div className="col-sm-8">
                                         <select
-                                            className="form-select"
+                                            className="form-select w-100"
                                             value={selectedCountry}
                                             onChange={handleCountryChange}
                                             aria-label="Filter by country"
@@ -112,10 +102,11 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
                                             ))}
                                         </select>
                                     </div>
-                                    <div className="col-md-6">
+                                    <div className="col-sm-4">
                                         <button
-                                            className="btn btn-outline-secondary"
-                                            onClick={handleResetFilter}
+                                            className="btn btn-outline-secondary w-100"
+                                            onClick={handleCountryChange}
+                                            value={''}
                                         >
                                             <i className="bi bi-arrow-repeat me-2"></i>
                                             Reset Filter
@@ -127,43 +118,18 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
 
                         {favoriteCities.length === 0 ? (
                             <div className="alert alert-warning">
-                                {selectedCountry
-                                    ? `No favorite cities from ${selectedCountry}`
-                                    : 'No favorite cities to display'}
+                                No favorite cities {selectedCountry
+                                    ? `from ${selectedCountry}`
+                                    : 'to display'}
                             </div>
                         ) : (
                             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                                 {favoriteCities.map(city => (
-                                    <div key={city.name} className="col">
-                                        <div className="card h-100 shadow-sm">
-                                            <div className="card-header bg-primary text-white">
-                                                <h5 className="card-title mb-0">{city.name}</h5>
-                                            </div>
-                                            <div className="card-body">
-                                                <p className="card-text">
-                                                    <strong>Country:</strong> {city.country}
-                                                </p>
-                                            </div>
-                                            <div className="card-footer">
-                                                <button
-                                                    className="btn btn-outline-primary w-100"
-                                                    onClick={() => fetchWeatherData(city)}
-                                                    disabled={loading}
-                                                >
-                                                    {loading && selectedCity && selectedCity.name === city.name ? (
-                                                        <>
-                                                            <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                                                            Loading forecast...
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <i className="bi bi-cloud-sun me-2"></i>
-                                                            Show Forecast
-                                                        </>
-                                                    )}
-                                                </button>
-                                            </div>
-                                        </div>
+                                    <div key={city.name}>
+                                        <CityCard
+                                            city={city}
+                                            fetchWeatherFunc={fetchWeatherData}
+                                        />
                                     </div>
                                 ))}
                             </div>
@@ -173,6 +139,6 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
             </div>
         </div>
     );
-};
+}
 
 export default HomePage;
