@@ -153,7 +153,7 @@ function AllCities ({cities, countries, dispatch}) {
                             <div className="alert alert-info">No cities to display</div>
                         ) : (
                             <div className="table-responsive">
-                                <table className="table table-striped table-hover">
+                                <table className="table table-striped table-hover text-center">
                                     <thead className="table-dark">
                                     <tr>
                                         <th>City Name</th>
