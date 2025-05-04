@@ -128,7 +128,12 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
                         ) : (
                             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                                 {favoriteCities.map(city => (
-                                    <div key={city.name} className="col">
+                                    <div key={city.name}>
+                                        <CityCard
+                                            city={city}
+                                            setSelectedCity={setSelectedCity}
+                                        />
+                                        {/*
                                         <div className="card h-100 shadow-sm">
                                             <div className="card-header bg-primary text-white">
                                                 <h5 className="card-title mb-0">{city.name}</h5>
@@ -155,7 +160,7 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
                                                             Show Forecast
                                                         </>
                                                     )}
-                                                </button>*/}
+                                                </button>* /}
                                                 <button
                                                     className="btn btn-outline-primary w-100"
                                                     onClick={() => setSelectedCity(city)}
@@ -170,7 +175,7 @@ function HomePage ({ cities, countries, selectedCountry, setSelectedCountry }){
                                     <div key={city.name}>
                                         <CityCard
                                             city={city}
-                                            fetchWeatherFunc={fetchWeatherData}
+                                            setSelectedCity={setSelectedCity}
                                         />*/}
                                     </div>
                                 ))}

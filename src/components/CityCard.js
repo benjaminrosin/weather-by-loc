@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function CityCard({city, fetchWeatherFunc}){
+function CityCard({city, setSelectedCity}){
     return (
         <div className="card h-100 shadow">
             <div className="card-header bg-secondary text-white">
@@ -15,7 +15,7 @@ function CityCard({city, fetchWeatherFunc}){
             <div className="card-footer">
                 <button
                     className="btn btn-outline-secondary w-100"
-                    onClick={() => fetchWeatherFunc(city)}
+                    onClick={() => setSelectedCity(city)}
                 >
                     <i className="bi bi-cloud-sun me-2"/>Show Forecast
                 </button>
