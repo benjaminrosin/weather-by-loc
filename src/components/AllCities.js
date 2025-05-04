@@ -5,6 +5,7 @@ import CityForm from "./CityForm";
 function AllCities ({cities, countries, dispatch}) {
     const [editingCity, setEditingCity] = useState(null);
     const [addingCity, setAddingCity] = useState(null);
+    const [editingForm, setEditingForm] = useState(null)
     const [modalMessage, setModalMessage] = useState('');
     const [cityToDelete, setCityToDelete] = useState(null);
 
@@ -26,16 +27,21 @@ function AllCities ({cities, countries, dispatch}) {
         backdrop: 'static'
     });
 
-    const sortedCities = [...cities].sort((a, b) => a.name.localeCompare(b.name));
+    //const sortedCities = [...cities].sort((a, b) => a.name.localeCompare(b.name));
+    const sortedCities = Object.entries(cities)
+        .sort(([nameA], [nameB]) => nameA.localeCompare(nameB))
+        .map(([name, city]) => ({ name, ...city }));
 
     const handleAddCity = () => {
-        setAddingCity(true);
-        setEditingCity(null);
+        //setAddingCity(true);
+        //setEditingCity(null);
+        setEditingForm({...editingForm, form: true})
     };
 
     const handleEditCity = (city) => {
-        setEditingCity(city);
-        setAddingCity(false);
+        //setEditingCity(city);
+        //setAddingCity(false);
+        setEditingForm({form: true, obj: city})
     }
 
     const handleAddNewCity = (newCity) => {
@@ -49,6 +55,10 @@ function AllCities ({cities, countries, dispatch}) {
         setAddingCity(false);
         return true;
     };
+
+    const  saveChanges = (city) =>{
+
+    }
 
     const handleUpdateCity = (updatedCity) => {
         if (editingCity) {
@@ -91,15 +101,23 @@ function AllCities ({cities, countries, dispatch}) {
                 <div className="d-flex justify-content-between align-items-center mb-4">
                     <h2>Manage Cities</h2>
                     {!addingCity && !editingCity && (
-                        <button className="btn btn-primary" onClick={handleAddCity}>
+                        <button className="btn btn-primary" onClick={()=> setEditingForm({})}>
                             <i className="bi bi-plus-circle me-2"></i>
                             Add New City
                         </button>
                     )}
                 </div>
 
+                {(editingForm) && (
+                  <CityForm
+                    citiesList={cities}
+                    countries={countries}
+                    onSubmit={}
+                    editing={editingForm}
+                  />
+                )}
 
-                {(addingCity) && (
+                {/*(addingCity) && (
                     <CityForm
                         editing={editingCity}
                         citiesList={cities}
@@ -117,10 +135,11 @@ function AllCities ({cities, countries, dispatch}) {
                         onSubmit={handleUpdateCity}
                         //onCancel={handleCancel}
                     />
-                )}
+                )*/}
 
                 {/* Cities list */}
-                {!addingCity && !editingCity && (
+                {//!addingCity && !editingCity && (
+                    !editingForm &&(
                     <>
                         {sortedCities.length === 0 ? (
                             <div className="alert alert-info">No cities to display</div>
@@ -157,7 +176,7 @@ function AllCities ({cities, countries, dispatch}) {
                                                 <div className="btn-group">
                                                     <button
                                                         className="btn btn-sm btn-outline-primary"
-                                                        onClick={() => handleEditCity(city)}
+                                                        onClick={() => setEditingForm(city)}
                                                         title="Edit city"
                                                     >
                                                         <i className="bi bi-pencil"></i>

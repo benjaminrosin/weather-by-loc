@@ -15,6 +15,7 @@ function CityForm({citiesList, countries, onSubmit, editing = null}) {
     function resetForm(){
         setFormData({});
         setErrors({});
+        onSubmit(null);
     }
 
     function validate() {
@@ -27,9 +28,9 @@ function CityForm({citiesList, countries, onSubmit, editing = null}) {
         else if(!/^[a-zA-Z\s]+$/.test(formData.name)){
             currErrors.name = "City name can only contain letters and spaces";
         }
-        else if (citiesList.some((city) => city.name.toLowerCase() === formData.name.toLowerCase())) {
+        /*else if (citiesList.some((city) => city.name.toLowerCase() === formData.name.toLowerCase())) {
             currErrors.name = "City name must bu unique";
-        }
+        }*/
 
         //country validation
         if (!formData.country){
@@ -63,8 +64,8 @@ function CityForm({citiesList, countries, onSubmit, editing = null}) {
     function handleSubmit(event) {
         event.preventDefault();
         if (validate()){
-            onSubmit(formData)
-            resetForm()
+            onSubmit(formData);
+            resetForm();
         }
     }
 
