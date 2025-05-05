@@ -1,5 +1,13 @@
 import {Link} from "react-router-dom";
 
+/**
+ * NotFoundPage Component
+ *
+ * Displays a 404 error page when a route is not found.
+ * Includes a link to return to the home page.
+ *
+ * @returns {JSX.Element} - Rendered 404 page with navigation option
+ */
 function NotFoundPage(){
     return (
         <div className="container text-center mt-5">

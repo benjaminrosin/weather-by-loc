@@ -1,5 +1,13 @@
 import React from "react";
 
+/**
+ * A card component that displays weather information for a single day.
+ * Shows date, weather icon, temperature range and wind conditions.
+ *
+ * @param {Object} day - Weather data for the specific day
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const WeatherDayCard = ({day}) => {
     const formatDate = (dateStr) => {
         if (!dateStr) return '';

@@ -1,7 +1,14 @@
-// components/Layout.js
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
+/**
+ * Layout Component
+ *
+ * Main application layout with navigation bar and content container.
+ * Provides responsive navigation and routing structure using React Router.
+ *
+ * @returns {JSX.Element} - Rendered layout with navigation and content area
+ */
 const Layout = () => {
     return (
         <div>
