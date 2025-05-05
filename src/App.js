@@ -8,6 +8,7 @@ import AboutPage from "./components/AboutPage";
 import AllCities from "./components/AllCities";
 import NotFoundPage from "./components/NotFoundPage";
 import {citiesReducer} from "./reducers/citiesReducer";
+import useLocalStorageReducer from "./hooks/useLocalStorageReducer";
 
 function App() {
 
@@ -24,12 +25,16 @@ function App() {
 
     const COUNTRIES = ["Israel", "USA", "England", "France", "Spain", "Italy", "Germany", "Japan"];
 
-    const [cities, dispatch] = useReducer(citiesReducer, Object.fromEntries(initialCities.map(
-        ({name, ...rest})=> [name, rest])));
+    //const [cities, dispatch] = useReducer(citiesReducer, Object.fromEntries(initialCities.map(
+    //    ({name, ...rest})=> [name, rest])));
     const [countries, setCountries] = useState([]); /*temporary!!*/
     const [selectedCountry, setSelectedCountry] = useState('');
 
-    useEffect(() => {
+    const[cities, dispatch] = useLocalStorageReducer('cities', citiesReducer, Object.fromEntries(initialCities
+        .map(({name, ...rest})=> [name, rest])));
+
+    console.log(cities);
+    /*useEffect(() => {
         const storedCities = localStorage.getItem('cities');
         if (storedCities) {
             dispatch({ type: 'INITIALIZE', payload: JSON.parse(storedCities) });
@@ -39,10 +44,10 @@ function App() {
     useEffect(() => {
         localStorage.setItem('cities', JSON.stringify(cities));
     }, [cities]);
-
+*/
     useEffect(() => {
-        setCountries(COUNTRIES)
-        //here we cam add a dynamic country list from server
+        setCountries(COUNTRIES);
+        //here we can add a dynamic country list from server
     }, []);
 
     return (
