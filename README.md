@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Developed by:
+<ul>
+<li><strong>Yochai Benita</strong> Yochaiben@edu.jmc.ac.il </li>
+<li><strong>Benjamin Rosin</strong> Benjaminro@edu.jmc.ac.il</li>
+</ul>
+
 ## Available Scripts
 
 In the project directory, you can run:
