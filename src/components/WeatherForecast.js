@@ -1,4 +1,7 @@
 import useWeatherForecast from "../hooks/useWeatherForecast";
+import WeatherDayCard from "../components/WeatherDayCard";
+import LoadingWeather from "./LoadingWeather";
+import ErrorWeather from "./ErrorWeather";
 import React from 'react';
 
 const WeatherForecast7Timer = ({city}) => {
@@ -7,90 +10,31 @@ const WeatherForecast7Timer = ({city}) => {
         city.longitude
     );
 
-    const formatDate = (dateStr) => {
-        if (!dateStr) return '';
-
-        const date = new Date(dateStr);
-        return date.toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    };
-
-    const isToday = (dateStr) => {
-        const target = new Date(dateStr);
-
-        const today = new Date();
-        return (
-            target.getDate() === today.getDate() &&
-            target.getMonth() === today.getMonth() &&
-            target.getFullYear() === today.getFullYear()
-        );
-    };
-
-    const getWeatherIcon = (iconType) => {
-        return <i className={`bi bi-${iconType}`}></i>;
-    };
-
     return (
         <div className="container mt-4">
             <div className="row justify-content-center">
                 <div className="col-md-8">
                     <div className="card shadow">
                         <div className="card-header bg-secondary text-white">
-                            <h2 className="text-center mb-0">7-Day Weather Forecast</h2>
+                            <h2 className="text-center mb-0">{city.name} Forecast</h2>
                         </div>
                         <div className="card-body">
-                            {loading && (
-                                <div className="text-center p-4">
-                                    <div className="spinner-border text-primary" role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                    </div>
-                                    <p className="mt-2">Loading weather forecast...</p>
-                                </div>
-                            )}
+                            {loading && <LoadingWeather/>}
 
-                            {error && !loading && (
-                                <div className="alert alert-danger">
-                                    <h4 className="alert-heading">Error Loading Forecast</h4>
-                                    <p>Unable to load weather forecast at this time. Please try again later.</p>
-                                </div>
-                            )}
+                            {error && !loading && <ErrorWeather/>}
 
                             {forecast && !loading && (
                                 <div>
                                     <div className="text-center mb-4">
                                         <h3>From Today for Next 7 Days</h3>
-                                        <p className="text-muted">
-                                            Showing forecast for {forecast.length} days
-                                        </p>
                                     </div>
 
                                     <div className="row">
                                         {forecast.map((day, index) => (
                                             <div className="col-md-6 mb-3" key={index}>
-                                                <div className={`card h-100 ${isToday(day.date) ? 'border-secondary' : ''}`}>
-                                                    <div className={`card-header d-flex justify-content-between align-items-center ${isToday(day.date) ? '' : ''}`}>
-                                                        <span>{isToday(day.date) ? <strong>Today</strong> : formatDate(day.date)}</span>
-                                                        <span className="fs-4">{getWeatherIcon(day.icon)}</span>
-                                                    </div>
-                                                    <div className="card-body">
-                                                        <h5 className="card-title">{day.weather}</h5>
-                                                        <div className="d-flex justify-content-between">
-                                                            <div>
-                                                                <i className="bi bi-thermometer-high text-danger"></i> Max: {day.tempMax}°C
-                                                            </div>
-                                                            <div>
-                                                                <i className="bi bi-thermometer-low text-primary"></i> Min: {day.tempMin}°C
-                                                            </div>
-                                                        </div>
-                                                        <div className="mt-2">
-                                                            <i className="bi bi-wind"></i> Wind: {day.wind} (scale 1-10)
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <WeatherDayCard
+                                                    day={day}
+                                                    />
                                             </div>
                                         ))}
                                     </div>
