@@ -1,4 +1,4 @@
-import {useState, useEffect, useReducer} from 'react';
+import {useEffect, useReducer} from 'react';
 
 function useLocalStorageReducer(key, reducer ,initialValue) {
     const initializer = (initialValue) => {
