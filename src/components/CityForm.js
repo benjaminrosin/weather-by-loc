@@ -1,5 +1,15 @@
 import {useState} from "react";
 
+/**
+ * Form component for adding or editing city information with validation.
+ *
+ * @component
+ * @param {Object} citiesList - Object containing existing cities
+ * @param {string[]} countries - Array of available countries for selection
+ * @param {Function} onSubmit - Callback function when form is submitted, receives form data or null
+ * @param {Object} editing - City object being edited, empty object for new city
+ * @returns {JSX.Element} A form for creating or editing city information
+ */
 function CityForm({citiesList, countries, onSubmit, editing}) {
     const [formData, setFormData] = useState({...editing});
     const [errors, setErrors] = useState({});

@@ -1,6 +1,13 @@
 import React from "react";
 
-
+/**
+ * Card component displaying city information with option to view forecast.
+ *
+ * @component
+ * @param {Object} city - City object with name and country properties
+ * @param {Function} setSelectedCity - Function to set the selected city, receives city object
+ * @returns {JSX.Element} A card displaying city details with a forecast button
+ */
 function CityCard({city, setSelectedCity}){
     return (
         <div className="card h-100 shadow">

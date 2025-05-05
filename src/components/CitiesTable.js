@@ -1,4 +1,13 @@
-
+/**
+ * A table component that displays city information with options to mark as favorite, edit, or delete.
+ *
+ * @component
+ * @param {Object[]} cities - Array of city objects with name, country, latitude, longitude, and isFavorite properties
+ * @param {Function} toggleFavoriteFunc - Function to toggle favorite status, receives city name
+ * @param {Function} editFunc - Function to edit city, receives city object
+ * @param {Function} deleteFunc - Function to delete city, receives city name
+ * @returns {JSX.Element} A responsive table displaying city information
+ */
 function CitiesTable({cities,toggleFavoriteFunc ,editFunc, deleteFunc}) {
     return (
         <div className="table-responsive">

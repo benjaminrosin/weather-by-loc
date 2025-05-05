@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import {useEffect, useReducer, useState} from "react";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
+import {useEffect, useState} from "react";
 import HomePage from "./components/HomePage";
 import Layout from "./components/Layout";
 import AboutPage from "./components/AboutPage";
@@ -10,9 +10,15 @@ import NotFoundPage from "./components/NotFoundPage";
 import {citiesReducer} from "./reducers/citiesReducer";
 import useLocalStorageReducer from "./hooks/useLocalStorageReducer";
 
+/**
+ * Main application component that sets up routing and manages global state.
+ *
+ * @component
+ * @returns {JSX.Element} Application with routing configuration
+ */
 function App() {
 
-    const initialCities = [
+    const INITIAL_CITIES = [
         {name: "Paris", country: "France", longitude: 2.35, latitude: 48.85, isFavorite: false},
         {name: "New York", country: "USA", longitude: -74.0059, latitude: 40.7128, isFavorite: false},
         {name: "London", country: "England", longitude: -0.1278, latitude: 51.5074, isFavorite: true},
@@ -25,26 +31,11 @@ function App() {
 
     const COUNTRIES = ["Israel", "USA", "England", "France", "Spain", "Italy", "Germany", "Japan"];
 
-    //const [cities, dispatch] = useReducer(citiesReducer, Object.fromEntries(initialCities.map(
-    //    ({name, ...rest})=> [name, rest])));
     const [countries, setCountries] = useState([]); /*temporary!!*/
     const [selectedCountry, setSelectedCountry] = useState('');
-
-    const[cities, dispatch] = useLocalStorageReducer('cities', citiesReducer, Object.fromEntries(initialCities
+    const[cities, dispatch] = useLocalStorageReducer('cities', citiesReducer, Object.fromEntries(INITIAL_CITIES
         .map(({name, ...rest})=> [name, rest])));
 
-    console.log(cities);
-    /*useEffect(() => {
-        const storedCities = localStorage.getItem('cities');
-        if (storedCities) {
-            dispatch({ type: 'INITIALIZE', payload: JSON.parse(storedCities) });
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('cities', JSON.stringify(cities));
-    }, [cities]);
-*/
     useEffect(() => {
         setCountries(COUNTRIES);
         //here we can add a dynamic country list from server

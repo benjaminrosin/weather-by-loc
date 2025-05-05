@@ -1,3 +1,9 @@
+/**
+ * AboutPage component that displays information about the project, its features, and its developers.
+ *
+ * @returns {JSX.Element} The rendered About page content.
+ * @constructor
+ */
 function AboutPage (){
     return (
         <div className="container mt-4">

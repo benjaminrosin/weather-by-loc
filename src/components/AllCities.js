@@ -3,6 +3,19 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import CityForm from "./CityForm";
 import CitiesTable from "./CitiesTable";
 
+/**
+ * AllCities component for displaying and managing the full list of cities.
+ *
+ * Allows users to add, edit, delete, and mark cities as favorites.
+ * Includes a toast notification for deletions and integrates with a reducer via dispatch.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.cities - An object containing all city data, keyed by city name.
+ * @param {string[]} props.countries - An array of available country names.
+ * @param {function} props.dispatch - A dispatch function for city-related reducer actions.
+ * @returns {JSX.Element} The rendered city management interface.
+ * @constructor
+ */
 function AllCities ({cities, countries, dispatch}) {
     const [editingForm, setEditingForm] = useState(null)
     const [toastMessage, setToastMessage] = useState('');

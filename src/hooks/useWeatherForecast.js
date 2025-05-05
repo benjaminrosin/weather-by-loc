@@ -1,6 +1,16 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+/**
+ * Custom hook that fetches and returns weather forecast data for a given location.
+ *
+ * @param {number} lat - Latitude of the location
+ * @param {number} lon - Longitude of the location
+ * @returns {Object} Object containing forecast data, loading state, and error state
+ * @returns {Array} returns.forecast - Array of daily weather forecast objects
+ * @returns {boolean} returns.loading - Loading state indicator
+ * @returns {Object|null} returns.error - Error object if request failed, null otherwise
+ */
 function useWeatherForecast(lat, lon) {
     const [forecast, setForecast] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
