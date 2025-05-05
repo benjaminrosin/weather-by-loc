@@ -7,32 +7,24 @@ const WeatherForecast7Timer = ({city}) => {
         longitude:city.longitude});*/
 
     const { forecast, loading, error } = useWeatherForecast(
-        //coordinates.lat,
-        //coordinates.lon
         city.latitude,
         city.longitude
     );
 
-    const formatDate = (dateInt) => {
-        if (!dateInt) return '';
-        const dateStr = dateInt.toString();
-        const year = parseInt(dateStr.slice(0, 4));
-        const month = parseInt(dateStr.slice(4, 6)) - 1;
-        const day = parseInt(dateStr.slice(6, 8));
-        const date = new Date(year, month, day);
+    const formatDate = (dateStr) => {
+        if (!dateStr) return '';
+
+        const date = new Date(dateStr);
         return date.toLocaleDateString('en-US', {
             weekday: 'long',
+            year: 'numeric',
             month: 'long',
             day: 'numeric'
         });
     };
 
-    const isToday = (dateInt) => {
-        const dateStr = dateInt.toString();
-        const year = parseInt(dateStr.slice(0, 4));
-        const month = parseInt(dateStr.slice(4, 6)) - 1;
-        const day = parseInt(dateStr.slice(6, 8));
-        const target = new Date(year, month, day);
+    const isToday = (dateStr) => {
+        const target = new Date(dateStr);
 
         const today = new Date();
         return (
@@ -51,7 +43,7 @@ const WeatherForecast7Timer = ({city}) => {
             <div className="row justify-content-center">
                 <div className="col-md-8">
                     <div className="card shadow">
-                        <div className="card-header bg-primary text-white">
+                        <div className="card-header bg-secondary text-white">
                             <h2 className="text-center mb-0">7-Day Weather Forecast</h2>
                         </div>
                         <div className="card-body">
@@ -83,9 +75,9 @@ const WeatherForecast7Timer = ({city}) => {
                                     <div className="row">
                                         {forecast.map((day, index) => (
                                             <div className="col-md-6 mb-3" key={index}>
-                                                <div className={`card h-100 ${isToday(day.date) ? 'border-primary' : ''}`}>
-                                                    <div className={`card-header d-flex justify-content-between align-items-center ${isToday(day.date) ? 'bg-primary text-white' : ''}`}>
-                                                        <span>{isToday(day.date) ? 'Today' : formatDate(day.date)}</span>
+                                                <div className={`card h-100 ${isToday(day.date) ? 'border-secondary' : ''}`}>
+                                                    <div className={`card-header d-flex justify-content-between align-items-center ${isToday(day.date) ? '' : ''}`}>
+                                                        <span>{isToday(day.date) ? <strong>Today</strong> : formatDate(day.date)}</span>
                                                         <span className="fs-4">{getWeatherIcon(day.icon)}</span>
                                                     </div>
                                                     <div className="card-body">
