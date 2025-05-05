@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef} from "react";
+/*import {useCallback, useEffect, useRef} from "react";
 import { Modal } from 'bootstrap';
 
 function useModal(options = {}) {
@@ -32,3 +32,4 @@ function useModal(options = {}) {
 
     return {modalRef, showModal, hideModal};
 } export default useModal;
+*/

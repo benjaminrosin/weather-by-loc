@@ -1,11 +1,7 @@
 import useWeatherForecast from "../hooks/useWeatherForecast";
-import React, { useState } from 'react';
+import React from 'react';
 
 const WeatherForecast7Timer = ({city}) => {
-    /*const [coordinates, setCoordinates] = useState({
-        latitude:city.latitude,
-        longitude:city.longitude});*/
-
     const { forecast, loading, error } = useWeatherForecast(
         city.latitude,
         city.longitude
@@ -100,7 +96,6 @@ const WeatherForecast7Timer = ({city}) => {
                                     </div>
 
                                     <div className="mt-4 mb-2 text-muted text-center small">
-                                        {/*<p>Weather for: {coordinates.lat.toFixed(4)}°, {coordinates.lon.toFixed(4)}° (city.name)</p>*/}
                                         <p>Weather for: {city.latitude.toFixed(4)}°, {city.longitude.toFixed(4)}° ({city.name})</p>
                                         <p>Data provided by 7Timer API</p>
                                     </div>

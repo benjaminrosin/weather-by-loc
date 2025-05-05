@@ -1,6 +1,5 @@
 import {useState} from "react";
 
-
 function CityForm({citiesList, countries, onSubmit, editing}) {
     const [formData, setFormData] = useState({...editing});
     const [errors, setErrors] = useState({});

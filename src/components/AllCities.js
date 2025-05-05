@@ -1,99 +1,24 @@
-import {useEffect, useRef, useState} from "react";
+import {useState} from "react";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import useModal from "../hooks/useModal";
 import CityForm from "./CityForm";
 import CitiesTable from "./CitiesTable";
 
 function AllCities ({cities, countries, dispatch}) {
-    //const [editingCity, setEditingCity] = useState(null);
-    //const [addingCity, setAddingCity] = useState(null);
     const [editingForm, setEditingForm] = useState(null)
-    //const [modalMessage, setModalMessage] = useState('');
-    //const [cityToDelete, setCityToDelete] = useState(null);
     const [toastMessage, setToastMessage] = useState('');
     let toastTimeoutID = null;
-/*
-    const {
-        modalRef: messageModalRef,
-        showModal: showMessageModal,
-        hideModal: hideMessageModal
-    } = useModal({
-        keyboard: false,
-        backdrop: 'static'
-    });
 
-    const {
-        modalRef: confirmModalRef,
-        showModal: showConfirmModal,
-        hideModal: hideConfirmModal
-    } = useModal({
-        keyboard: false,
-        backdrop: 'static'
-    });
-*/
     const sortedCities = Object.entries(cities)
         .sort(([nameA], [nameB]) => nameA.localeCompare(nameB))
         .map(([name, city]) => ({ name, ...city }));
 
-    /*
-    const handleAddCity = () => {
-        setAddingCity(true);
-        setEditingCity(null);
-        //setEditingForm({...editingForm, form: true})
-    };
-
-    const handleEditCity = (city) => {
-        setEditingCity(city);
-        setAddingCity(false);
-        //setEditingForm({form: true, obj: city})
-    }
-
-     */
-/*
-    const handleAddNewCity = (newCity) => {
-        if (cities.some(city => city.name === newCity.name)) {
-            setModalMessage('City name already exists');
-            showMessageModal();
-            return false;
-        }
-
-        dispatch({ type: 'ADD_CITY', payload: newCity });
-        setAddingCity(false);
-        return true;
-    };
-*/
     const  saveChanges = (city) =>{
         if (city) {
             dispatch({ type: 'SAVE_CHANGES', payload: city });
         }
         setEditingForm(null)
     }
-/*
-    const handleUpdateCity = (updatedCity) => {
-        if (editingCity) {
-            dispatch({
-                type: 'UPDATE_CITY',
-                name: editingCity.name,
-                payload: updatedCity
-            });
-            setEditingCity(null);
-        }
-        return true;
-    };
 
-    const prepareDeleteCity = (city) => {
-        setCityToDelete(city);
-        showConfirmModal();
-    };
-
-    const confirmDeleteCity = () => {
-        if (cityToDelete) {
-            dispatch({ type: 'DELETE_CITY', name: cityToDelete.name });
-            hideConfirmModal();
-            setCityToDelete(null);
-        }
-    };
-*/
     const deleteCity = (cityName) => {
         dispatch({ type: 'DELETE_CITY', payload: cityName });
         setToastMessage('Delete city: ' + cityName);
@@ -108,15 +33,6 @@ function AllCities ({cities, countries, dispatch}) {
     const handleToggleFavorite = (city) => {
         dispatch({ type: 'TOGGLE_FAVORITE', cityName: city });
     };
-
-    /*
-    // Cancel adding/editing
-    const handleCancel = () => {
-        setEditingCity(null);
-        setAddingCity(false);
-    };
-
-     */
 
     return (
         <div className="row">
@@ -150,49 +66,7 @@ function AllCities ({cities, countries, dispatch}) {
                                 editFunc = {setEditingForm}
                                 deleteFunc = {deleteCity}
                             />
-                            /*<div className="table-responsive">
-                                <table className="table table-striped table-hover text-center">
-                                    <thead className="table-dark">
-                                    <tr>
-                                        <th>City Name</th>
-                                        <th>Country</th>
-                                        <th>Latitude</th>
-                                        <th>Longitude</th>
-                                        <th>Favorite</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {sortedCities.map(city => (
-                                        <tr key={city.name}>
-                                            <td>{city.name}</td>
-                                            <td>{city.country}</td>
-                                            <td>{city.latitude}</td>
-                                            <td>{city.longitude}</td>
-                                            <td>
-                                                <button
-                                                    onClick={() => handleToggleFavorite(city.name)}
-                                                    className={`btn bi p-0 border-0 ${city.isFavorite ? 'bi-star-fill text-warning' : 'bi-star'}` }
-                                                />
-                                            </td>
-                                            <td>
-                                                <div className="btn-group d-flex justify-content-center">
-                                                    <button
-                                                        className="btn bi btn-sm btn-outline-primary bi-pencil"
-                                                        onClick={() => setEditingForm(city)}
-                                                    />
-                                                    <button
-                                                        className="btn bi btn-sm btn-outline-danger bi-trash"
-                                                        onClick={() => deleteCity(city.name)}
-                                                    />
 
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
-                            </div>*/
                         )}
                     </>
                 )}
@@ -204,51 +78,6 @@ function AllCities ({cities, countries, dispatch}) {
                         </div>
                     </div>
                 </div>
-
-                {/* Message Modal - Using our custom hook * /}
-                <div className="modal fade" ref={messageModalRef} tabIndex="-1" aria-labelledby="messageModalLabel"
-                     aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="messageModalLabel">Message</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div className="modal-body">
-                                {modalMessage}
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Confirmation Modal - Using our custom hook * /}
-                <div className="modal fade" ref={confirmModalRef} tabIndex="-1" aria-labelledby="confirmModalLabel"
-                     aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="confirmModalLabel">Confirm Deletion</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div className="modal-body">
-                                Are you sure you want to delete {cityToDelete?.name}?
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel
-                                </button>
-                                <button type="button" className="btn btn-danger" onClick={confirmDeleteCity}>Delete
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-*/}
             </div>
         </div>
     );
