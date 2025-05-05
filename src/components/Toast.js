@@ -1,3 +1,12 @@
+/**
+ * Toast Component
+ *
+ * Displays a notification message in a toast popup at the bottom right corner.
+ * Visibility is controlled by the presence of a message.
+ * @param {Object} props - Component props
+ * @param {string} props.message - The notification text to display
+ * @returns {JSX.Element} - Rendered toast notification
+ */
 function Toast({message}) {
     return (
         <div

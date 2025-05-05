@@ -4,6 +4,14 @@ import LoadingWeather from "./LoadingWeather";
 import ErrorWeather from "./ErrorWeather";
 import React from 'react';
 
+/**
+ * A component that displays a 7-day weather forecast for a specified city.
+ * Shows loading state, error messages, and renders individual day cards when data is available.
+ *
+ * @param {Object} city - City data including name and coordinates
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const WeatherForecast7Timer = ({city}) => {
     const { forecast, loading, error } = useWeatherForecast(
         city.latitude,
