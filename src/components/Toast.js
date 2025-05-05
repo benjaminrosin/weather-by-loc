@@ -14,4 +14,5 @@ function Toast({message}) {
         </div>
     )
 
-}; export default Toast;
+}
+export default Toast;

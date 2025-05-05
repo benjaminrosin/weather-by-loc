@@ -15,4 +15,5 @@ function CitiesContent({ cities, editFunc, toggleFavoriteFunc, deleteFunc }) {
             )}
         </>
     );
-}; export default CitiesContent;
+}
+export default CitiesContent;

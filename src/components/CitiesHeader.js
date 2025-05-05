@@ -9,4 +9,5 @@ function CitiesHeader({ editingForm, onAddCity }) {
             )}
         </div>
     );
-}; export default CitiesHeader;
+}
+export default CitiesHeader;
