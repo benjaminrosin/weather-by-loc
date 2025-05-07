@@ -29,7 +29,7 @@ const WeatherForecast7Timer = ({city}) => {
                         <div className="card-body">
                             {loading && <LoadingWeather/>}
 
-                            {error && !loading && <ErrorWeather/>}
+                            {error && !loading && <ErrorWeather message={error} />}
 
                             {forecast && !loading && (
                                 <div>

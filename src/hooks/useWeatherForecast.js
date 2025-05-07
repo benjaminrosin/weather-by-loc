@@ -51,10 +51,14 @@ function useWeatherForecast(lat, lon) {
                     `https://www.7timer.info/bin/api.pl?lon=${lon}&lat=${lat}&product=civillight&output=json`
                 );
 
-                const data = res.data?.dataseries;
+                const dataseries = res.data?.dataseries;
+
+                if (!dataseries){
+                    throw new Error('API error');
+                }
 
                 if(!isCancelled){
-                    const formatted = data.map(day => ({
+                    const formatted = dataseries.map(day => ({
                         date: parseDate(day.date),
                         weather: day.weather,
                         icon: weatherIconMap[day.weather] || 'question',
@@ -69,7 +73,7 @@ function useWeatherForecast(lat, lon) {
 
             } catch (err) {
                 if (!isCancelled) {
-                    setIsError(err);
+                    setIsError(err.message);
                     setForecast([]);
                 }
             } finally {
