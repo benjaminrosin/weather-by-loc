@@ -48,7 +48,7 @@ const WeatherForecast7Timer = ({city}) => {
                                     </div>
 
                                     <div className="mt-4 mb-2 text-muted text-center small">
-                                        <p>Weather for: {city.latitude.toFixed(4)}°, {city.longitude.toFixed(4)}° ({city.name})</p>
+                                        <p>Weather for: {city.latitude}°, {city.longitude}° ({city.name})</p>
                                         <p>Data provided by 7Timer API</p>
                                     </div>
                                 </div>
