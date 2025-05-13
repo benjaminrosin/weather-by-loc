@@ -1,4 +1,83 @@
-# Getting Started with Create React App
+# Weather Cities Application
+
+A modern, responsive React application for tracking weather information of cities worldwide, with features for managing favorite cities and viewing detailed weather forecasts.
+
+## 👥 Developed by
+
+- **Yochai Benita** (Yochaiben@edu.jmc.ac.il)
+- **Benjamin Rosin** (Benjaminro@edu.jmc.ac.il)
+
+## 🌟 Features
+
+- View and manage favorite cities
+- Filter cities by country
+- View detailed weather forecasts
+- Interactive city cards with location information
+- Responsive design for all devices
+- Local storage persistence for user preferences
+- Geographic coordinates support for precise weather data
+
+## 🛠️ Technologies Used
+
+- React.js
+- React Router for navigation
+- Bootstrap for UI components
+- Local Storage API for data persistence
+- Weather API integration
+- JavaScript/JSX
+
+## 🏃‍♂️ Getting Started
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm start
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## 📝 Available Scripts
+
+- `npm start` - Runs the app in development mode
+- `npm test` - Launches the test runner
+- `npm run build` - Builds the app for production
+- `npm run eject` - Ejects from Create React App
+
+## 📁 Project Structure
+
+```
+src/
+├── components/     # React components (HomePage, CityCard, WeatherForecast, etc.)
+├── hooks/         # Custom React hooks
+├── reducers/      # State management reducers
+└── App.js         # Main application component
+```
+
+## 🌍 Initial Cities
+
+The application comes pre-configured with several major cities including:
+- Paris, France
+- New York, USA
+- London, England
+- Madrid, Spain
+- Rome, Italy
+- Berlin, Germany
+- Tokyo, Japan
+- Jerusalem, Israel
+
+## 🤝 Contributing
+
+Feel free to submit issues and pull requests.
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+
+<!--# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
